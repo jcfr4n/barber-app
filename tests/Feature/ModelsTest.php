@@ -12,6 +12,7 @@ class ModelsTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
+    protected $seed = true; // Esto ejecuta los seeders automáticamente
 
     /**
      * A basic feature test example.
@@ -23,13 +24,7 @@ class ModelsTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function setup(): void
-    {
-        parent::setUp();
-        $this->artisan('migrate:fresh', ['--seed' => true]);
-    }
-
-    public function  test_user_has_a_role()
+    public function test_user_has_a_role()
     {
         $user = User::first();
         $this->assertNotNull($user->role, 'User does not have a role');
